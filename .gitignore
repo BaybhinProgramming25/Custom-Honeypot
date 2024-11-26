@@ -1,0 +1,9 @@
+# Ignore the logs file 
+logs/ 
+
+# Ignore __pycache__
+cowrie-parser/__pycache__
+
+# Ignore env 
+cowrie-arser/env
+

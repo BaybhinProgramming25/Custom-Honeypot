@@ -1,8 +1,14 @@
 import time
 import re
-from kibana_post import post_to_kibana
+import os 
 
-# Keep a set of processed_entries to ensure no duplicates
+from kibana_post import post_to_kibana
+from dotenv import load_dotenv 
+
+# Load environment variable
+load_dotenv()
+
+# Keep a set of processed_entries to ensure no duplicate JSONs (we dont want to overfill our SIEM software)
 processed_jsons = set()
 
 # Parse the timestamp
@@ -77,5 +83,5 @@ def follow_log(file_path):
 
 if __name__ == "__main__":
     # Define the path to the cowrie.log file
-    log_file_path = '/mnt/honeypot-log/cowrie.log'
+    log_file_path =  os.getenv('LOG_FILE_PATH')
     follow_log(log_file_path)

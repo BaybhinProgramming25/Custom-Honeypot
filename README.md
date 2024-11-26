@@ -73,6 +73,62 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 2222
 
 Any SSH connections to port 22 will be treated as an SSH connection going to port 2222 and thus logged by cowrie 
 
+## 6: Modify bashrc to add cowrie's folder to the path
+
+Run the following commands to add cowrie's folder to path
+
+```
+nano ~/.bashrc
+```
+
+Head to the bottom of the file and add the following paths
+
+```
+PATH=/home/ubuntu/.local/bin:$PATH 
+PATH=/home/ubuntu/cowrie/bin:$PATH 
+```
+**NOTE:** Change ubuntu to the name of the current user in session. You can find this name by running the following command
+
+```
+whoami
+```
+
+Once you are done, save the file and then run the following to re-execute the current commands and configurations within the current session
+
+```
+source ~/.bashrc
+exec bash 
+``` 
+
+## 8: Install python virtual environment inside the cowrie folder 
+
+Cd into the cowrie folder and install python virtual environment within the folder 
+
+```
+cd cowrie
+python3 -m venv cowrie-env
+```
+
+Once the virtual environment is made, activate the virtual environment by running the following
+
+```
+source cowrie-env/bin/activate
+``` 
+
+## 9: Start Cowrie 
+
+Run cowrie by running the following command:
+
+```
+cowrie start
+```
+
+To check if cowrie is running, run the following command:
+
+```
+cowrie status
+```
+
 # Setting up SIEM 
 
 ## 1: TO BE ADDED 

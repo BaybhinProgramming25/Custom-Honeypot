@@ -1,9 +1,11 @@
-# Ignore the logs file 
-logs/ 
-
 # Ignore __pycache__
 cowrie-parser/__pycache__
 
-# Ignore env 
-cowrie-arser/env
+# Ignore environmental folder 
+cowrie-parser/env
 
+# Ignore environmental file
+cowrie-parser/.env
+
+# Ignore environmental file in attack-simulation
+attack-simulation/.env

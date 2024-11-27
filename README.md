@@ -204,4 +204,10 @@ cd attack-simulation
 docker-compose up -d 
 ``` 
 
-W
+Now, the containers should be able to attempt to SSH into the honeypot. 
+
+## ALTERNATIVE APPROACH: Router's DMZ
+
+An alternative but risky approach is to log into the router and make it so that __the honeypot is accessible across the entire internet.__ This is done through exposing your honeypot device with the router's DMZ, such that the honeypot device will basically accept external traffic and will thus share the same external IP address as the router. 
+
+You can do all of this by __logging into your router__ depending on your ISP. 

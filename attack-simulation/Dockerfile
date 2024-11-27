@@ -1,7 +1,8 @@
 FROM ubuntu:latest
 
-# Install certain features to the attacker machines 
-RUN apt-get update && apt-get install -y openssh-client sshpass
+# Update and install openssh-client and sshpass
+# I somehow cant install openssh-client and sshpass, this might be a problem for later 
+RUN apt-get update && apt-get install -y --no-install-recommends openssh-client sshpass
 
 # Create attack script that attempts to SSH into the honeypot 
 RUN echo '#!/bin/bash\n\

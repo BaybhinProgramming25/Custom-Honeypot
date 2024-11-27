@@ -30,6 +30,8 @@ This project is a demonstration on how to set up your own honeypot environmental
 
 # Setting up the Honeypot 
 
+**NOTE:** Make sure to do these steps on the Honeypot Ubuntu Device. DO NOT PERFORM THESE STEPS ON THE SIEM DEVICE. 
+
 ## 1: Update the OS
 
 Run the following commands to update and upgrade the packages
@@ -129,6 +131,62 @@ To check if cowrie is running, run the following command:
 cowrie status
 ```
 
+## 10: Testing Cowrie 
+
+Once cowrie is running, you can visit the __/var/log/cowrie/__ directory to see the log files. These log files will record any SSH attempt into the honeypot. 
+If you would like to test if cowrie logs an attacker machine, open a new terminal session and attempt to SSH into the honeypot 
+
+```
+ssh root@<honeypot-ip> -p 2222 
+``` 
+
+**NOTE:** If you are prompted to enter a password, just press Enter 
+
 # Setting up SIEM 
 
-## 1: TO BE ADDED 
+This step focuses on taking the cowrie log file, parsing the log files, inserting them into Elasticsearch, and lastly visualizing the data on Kibana 
+
+**NOTE:** All these steps are done on the machine that is in charge of the SIEM system. DO NOT FOLLOW THESE STEPS ON THE HONEYPOT MACHINE  
+
+## 1: Run docker compose inside the cowrie-parser folder 
+
+Cd into the cowrie-parser folder and run the following docker command to install Elasticsearch and Kibana as containers 
+
+```
+cd cowrie-parser
+docker-compose up -d
+``` 
+
+## 2: Use sshfs to mount the cowrie log file onto the current system
+
+SSHFS (SSH File System) is a tool that allows you to mount a remote file system onto your local machine via SSH. In order to mount the log file onto your local machine, run the following command 
+
+```
+sshfs <honeypot-username>@<honeypot-ip>:<path-to-log-file-on-remote-system> <local-mount-point>
+```
+
+Replace all the fields with the necessary information.
+
+**NOTE:** It is important to note that the best directory for the local-mount-point should be in the __/mnt__ directory. It is also recommended to create a new directory inside of /mnt directory and put the log file within that directory. 
+
+**NOTE:** Another important matter to note is that you should make sure that your log file on the remote system has __read, write, execute__ permissions. This is so that we can successfully use the log file for the parser program. 
+
+## 3: Run parse.py 
+
+Back inside the cowrie-parser folder, run the following
+
+```
+python3 parse.py
+```
+
+**NOTE:** The values of the log_file_path variable as well as the kibana_url variable (in kibana_post.py) are from environmental variables. Replace them with the necessary values before running the program. 
+
+## 4: Visualizing Data in Kibana 
+
+You can then visit **localhost5601** to see Kibana and set up an index __that has the same name as the one in the kibana_url__ (i.e. http://localhost:9200/log/_doc/ where log is the name of the index)
+
+Once that index is made, you can then visualize the data by creating a dashboard and then selecting how you want your data to be represented (i.e. pie chart, vertical stack, etc)
+
+**NOTE:** Additional data is being sent to the index as this parser is running, so always be sure to refresh your index to see the newly updated data 
+
+

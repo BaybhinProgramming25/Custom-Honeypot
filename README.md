@@ -1,6 +1,6 @@
 # Custom Honeypot 
 
-This project is a demonstration on how to set up your own honeypot environmental network that is used to capture incoming SSH connections onto that specific device. Docker is utilized in order to simulate different machines attempting to SSH into the honeypot. Finally, a SIEM software (Elasticsearch and Kibana) is used to display the SSH connections onto a GUI.    
+This project is a demonstration on how to set up your own honeypot environmental network that is used to capture incoming SSH connections onto that specific device. Docker is utilized in order to simulate different machines attempting to SSH into the honeypot. Finally, a partial SIEM software (Elasticsearch and Kibana) is used to display the SSH connections onto a GUI.    
 
 # Technologies Used
 
@@ -21,7 +21,7 @@ This project is a demonstration on how to set up your own honeypot environmental
 
 # Prerequisites 
 
-- One Ubuntu device to run SIEM and Docker software 
+- One Ubuntu device to run partial SIEM and Docker software 
 - Another Ubuntu device to be used as the Honeypot   
 - Docker installed
 - Docker Compose installed 
@@ -30,7 +30,7 @@ This project is a demonstration on how to set up your own honeypot environmental
 
 # Setting up the Honeypot 
 
-**NOTE:** Make sure to do these steps on the Honeypot Ubuntu Device. DO NOT PERFORM THESE STEPS ON THE SIEM DEVICE. 
+**NOTE:** Make sure to do these steps on the Honeypot Ubuntu Device. DO NOT PERFORM THESE STEPS ON THE PARTIAL SIEM DEVICE. 
 
 ## 1: Update the OS
 
@@ -142,11 +142,11 @@ ssh root@<honeypot-ip> -p 2222
 
 **NOTE:** If you are prompted to enter a password, just press Enter 
 
-# Setting up SIEM 
+# Setting up partial SIEM 
 
 This step focuses on taking the cowrie log file, parsing the log files, inserting them into Elasticsearch, and lastly visualizing the data on Kibana 
 
-**NOTE:** All these steps are done on the machine that is in charge of the SIEM system. DO NOT FOLLOW THESE STEPS ON THE HONEYPOT MACHINE  
+**NOTE:** All these steps are done on the machine that is in charge of the partial SIEM system. DO NOT FOLLOW THESE STEPS ON THE HONEYPOT MACHINE  
 
 ## 1: Run docker compose inside the cowrie-parser folder 
 
@@ -189,4 +189,19 @@ Once that index is made, you can then visualize the data by creating a dashboard
 
 **NOTE:** Additional data is being sent to the index as this parser is running, so always be sure to refresh your index to see the newly updated data 
 
+## Setting up Attack Simulation 
 
+This step focuses on setting up an attack simulation mechanism such that it will create 10 containers, each with its own ip address, and will attempt to SSH into the honeypot.
+
+**NOTE:** It is recommended do run these steps only after you have your honeypot completeted AND your partial SIEM system completed. 
+
+## 1: Run docker compose inside the attack-simulation folder 
+
+Cd into the attack-simulation folder and run the following docker command to initiate the containers
+
+```
+cd attack-simulation
+docker-compose up -d 
+``` 
+
+W

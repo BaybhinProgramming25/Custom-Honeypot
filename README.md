@@ -204,7 +204,30 @@ cd attack-simulation
 docker-compose up -d 
 ``` 
 
-Now, the containers should be able to attempt to SSH into the honeypot. 
+## 2: Exec into the containers in order to SSH into a honeypot
+
+With each of the containers running, you can now enter each of the containers and attempt to SSH into the honeypot from within the container. To achieve this, run the following command:
+
+```
+docker exec -it <id-of-docker-container> /bin/bash
+``` 
+
+Once in the container, you will need to install __openssh-client__ within the container. To do this, run the following command
+
+```
+apt-get install -y openssh-client 
+```
+
+Once installed, you can now ssh onto your honeypot server by following this format:
+
+
+```
+ssh root@<honeypot-ip> -p 2222
+```
+
+Press enter when prompted for the password. 
+
+You can now check the log files to see if the ip address of the container was traced. 
 
 ## ALTERNATIVE APPROACH: Router's DMZ
 

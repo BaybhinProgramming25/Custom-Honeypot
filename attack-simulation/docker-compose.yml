@@ -1,92 +1,104 @@
+version: '3'
 services:
   attacker1:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.1
 
-  
   attacker2:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.2
-  
 
   attacker3:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.3
-  
 
   attacker4:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.4
 
   attacker5:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.5
 
-  
   attacker6:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.6
 
-  
   attacker7:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.7
 
-
   attacker8:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.8
 
-
   attacker9:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.9
 
-
   attacker10:
-    build: .
-    env_file:
-      - .env
+    image: ubuntu:latest
+    command: sleep infinity
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     networks:
       attack_network:
         ipv4_address: 172.20.0.10
-
 
 networks:
   attack_network:
